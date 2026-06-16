@@ -1,0 +1,31 @@
+name: Generate Calendar
+on:
+  schedule:
+    - cron: '0 8 * * *' # Runs automatically every day at 8 AM UTC
+  workflow_dispatch: # Adds a button so you can trigger it manually
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4 icalendar pytz
+          
+      - name: Run calendar generator
+        run: python main.py
+        
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
