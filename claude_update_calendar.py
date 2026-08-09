@@ -347,6 +347,12 @@ def main():
 
     if not merged:
         print("No events found -- the page structure may have changed.", file=sys.stderr)
+        raw_text = soup.get_text("\n")
+        print(f"DEBUG: fetched page text length = {len(raw_text)} characters", file=sys.stderr)
+        print("DEBUG: first 1000 characters of fetched text:", file=sys.stderr)
+        print(raw_text[:1000], file=sys.stderr)
+        print("DEBUG: does raw text contain 'IMPORTANT DATES'? ->",
+              "IMPORTANT DATES" in raw_text.upper(), file=sys.stderr)
         sys.exit(1)
 
     ics_text = build_ics(merged)
