@@ -7,80 +7,97 @@ URL = "http://www.catamilacademy.org/MckinneyTamilAcademy.html"
 
 def fetch_and_generate():
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     }
     
     response = requests.get(URL, headers=headers)
     response.encoding = "utf-8"
     soup = BeautifulSoup(response.text, "html.parser")
     
-    # 1. Dynamically parse the legend/key to map background colors or text markers to types
-    # CTA pages generally use color coding or inline styles for Test / Holiday / Regular
-    legend_map = {}
-    for td in soup.find_all(["td", "th", "div", "span"]):
-        text = td.get_text(strip=True).lower()
-        style = td.get("style", "").lower()
-        bgcolor = td.get("bgcolor", "").lower()
-        
-        color_info = f"{style} {bgcolor}"
-        if "test" in text:
-            legend_map["test"] = "TEST"
-        elif "holiday" in text or "closed" in text:
-            legend_map["holiday"] = "CLOSED"
-
-    # 2. Extract schedule entries dynamically
-    events = {}
-    rows = soup.find_all("tr")
-
-    # Tracking year context across academic years (e.g. Aug-Dec -> 2026, Jan-May -> 2027)
-    base_year = datetime.now().year
+    # Extract all text content while preserving line breaks to keep descriptions aligned with dates
+    text_content = soup.get_text(separator="\n")
     
-    for row in rows:
-        cells = row.find_all(["td", "th"])
-        if len(cells) < 2:
+    events = {}
+    
+    # Pattern matches line blocks containing dates like "Aug 09, 2026", "Aug 09", or "08/09/2026"
+    # followed immediately or closely by description text on the same or next line
+    pattern = re.compile(
+        r"([A-Za-z]{3}\s+\d{1,2}(?:st|nd|rd|th)?(?:\s*,?\s*\d{4})?|\d{1,2}/\d{1,2}/\d{4})\s*[:\-\|]?\s*(.*)",
+        re.IGNORECASE
+    )
+
+    base_year = datetime.now().year
+
+    for line in text_content.splitlines():
+        line = line.strip()
+        if not line:
             continue
             
-        col1_text = cells[0].get_text(" ", strip=True)
-        col2_text = cells[1].get_text(" ", strip=True)
-        
-        # Match date formats like "Aug 09", "Aug 09, 2026", "08/09/2026", "Aug 09th"
-        date_match = re.search(r"([A-Za-z]{3})\s+(\d{1,2})(?:st|nd|rd|th)?(?:\s*,?\s*(\d{4}))?", col1_text)
-        if not date_match:
-            continue
+        match = re.search(r"([A-Za-z]{3})\s+(\d{1,2})(?:st|nd|rd|th)?(?:\s*,?\s*(\d{4}))?", line)
+        if match:
+            month_str, day_str, year_str = match.groups()
             
-        month_str, day_str, year_str = date_match.groups()
-        
-        # Infer academic year if not explicitly stated in the row
-        if year_str:
-            year = int(year_str)
-        else:
-            if month_str.capitalize() in ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]:
-                year = base_year + 1
+            # Dynamically handle academic year context (Aug-Dec vs Jan-May)
+            if year_str:
+                year = int(year_str)
             else:
-                year = base_year
+                if month_str.capitalize() in ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]:
+                    year = base_year + 1
+                else:
+                    year = base_year
 
-        try:
-            dt = datetime.strptime(f"{month_str} {day_str} {year}", "%b %d %Y")
-            formatted_date = dt.strftime("%Y%m%d")
-        except ValueError:
-            continue
+            try:
+                dt = datetime.strptime(f"{month_str} {day_str} {year}", "%b %d %Y")
+                formatted_date = dt.strftime("%Y%m%d")
+            except ValueError:
+                continue
 
-        description = col2_text if col2_text else "Class Day"
-        row_str = (row.get_text() + " " + str(row)).lower()
-        
-        # Dynamic type determination based on row content or style attributes
-        event_type = "OPEN"
-        if "test" in row_str or "exam" in row_str:
-            event_type = "TEST"
-        elif "holiday" in row_str or "closed" in row_str or "no class" in row_str or "break" in row_str:
-            event_type = "CLOSED"
+            # Extract the rest of the text on that line as the description
+            desc = line[match.end():].strip(" :-|")
+            description = desc if desc else "Class Day"
+            
+            # Dynamic type categorization based on text keywords
+            line_lower = line.lower()
+            event_type = "OPEN"
+            if "test" in line_lower or "exam" in line_lower:
+                event_type = "TEST"
+            elif "holiday" in line_lower or "closed" in line_lower or "no class" in line_lower or "break" in line_lower or "deepawali" in line_lower or "thanksgiving" in line_lower:
+                event_type = "CLOSED"
 
-        events[formatted_date] = {
-            "title": description,
-            "type": event_type
-        }
+            events[formatted_date] = {
+                "title": description,
+                "type": event_type
+            }
 
-    # 3. Generate .ics file output
+    # Fallback check: If the page structure isolates text into separate tags, extract by regex pairs
+    if not events:
+        raw_text = soup.get_text(separator=" ", strip=True)
+        # Search for occurrences of Date + Event description
+        pair_matches = re.findall(
+            r"([A-Za-z]{3}\s+\d{1,2}(?:st|nd|rd|th)?(?:\s*,?\s*\d{4})?)\s+([A-Za-z0-9\s\-\(\)]+)", 
+            raw_text
+        )
+        for date_part, desc_part in pair_matches:
+            m = re.search(r"([A-Za-z]{3})\s+(\d{1,2})(?:st|nd|rd|th)?(?:\s*,?\s*(\d{4}))?", date_part)
+            if m:
+                m_str, d_str, y_str = m.groups()
+                y = int(y_str) if y_str else (base_year + 1 if m_str.capitalize() in ["Jan", "Feb", "Mar", "Apr", "May"] else base_year)
+                try:
+                    dt = datetime.strptime(f"{m_str} {d_str} {y}", "%b %d %Y")
+                    f_date = dt.strftime("%Y%m%d")
+                except ValueError:
+                    continue
+                
+                desc_lower = desc_part.lower()
+                e_type = "OPEN"
+                if "test" in desc_lower or "exam" in desc_lower:
+                    e_type = "TEST"
+                elif "holiday" in desc_lower or "closed" in desc_lower or "break" in desc_lower:
+                    e_type = "CLOSED"
+
+                events[f_date] = {"title": desc_part.strip(), "type": e_type}
+
+    # Build .ics output
     ics_lines = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
