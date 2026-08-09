@@ -140,6 +140,12 @@ def parse_important_dates(soup):
     lines, stopping before the 'Term Dates:' recap section (skipped per
     the user's request)."""
     text = soup.get_text("\n")
+
+    # The live site renders each date's ordinal suffix (st/nd/rd/th) as a
+    # separate text node from the day number, e.g. "Aug 09\nth" instead of
+    # "Aug 09th" on one line. Rejoin them before splitting into lines.
+    text = re.sub(r"(\d{1,2})\s*\n+\s*(st|nd|rd|th)\b", r"\1\2", text)
+
     lines = [ln.strip() for ln in text.split("\n") if ln.strip()]
 
     try:
