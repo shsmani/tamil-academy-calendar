@@ -30,13 +30,16 @@ jobs:
         run: python update_calendar.py
 
       - name: Commit and push updated calendar_test.ics
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add calendar.ics
+          # git add calendar_test.ics
+          git add .
           if git diff --staged --quiet; then
             echo "No changes to calendar.ics"
           else
             git commit -m "Automated update of calendar.ics"
-            git push
+            git push origin HEAD:${{ github.ref_name }}
           fi
