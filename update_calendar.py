@@ -6,23 +6,29 @@ from bs4 import BeautifulSoup
 URL = "https://www.catamilacademy.org/MckinneyTamilAcademy.html"
 
 def fetch_and_generate():
-    response = requests.get(URL)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+    }
+    response = requests.get(URL, headers=headers)
     response.encoding = "utf-8"
     soup = BeautifulSoup(response.text, "html.parser")
     
-    # Locate table rows with schedule data
-    rows = soup.find_all("tr")
     events = []
 
+    # Find all table rows
+    rows = soup.find_all("tr")
+
     for row in rows:
-        cols = [c.get_text(strip=True) for c in row.find_all(["td", "th"])]
+        cols = [c.get_text(" ", strip=True) for c in row.find_all(["td", "th"])]
         if len(cols) >= 2:
-            # Match date pattern e.g., "Aug 09, 2026" or "08/09/2026"
+            # Match date patterns like "Aug 09, 2026" or "08/09/2026"
             date_match = re.search(r"([A-Za-z]{3}\s+\d{1,2},\s+\d{4})", cols[0])
             if date_match:
                 date_str = date_match.group(1)
                 description = cols[1]
                 
+                # Exclude explicitly closed/holiday days if you only want active events
+                # Or keep all events with clear descriptions
                 try:
                     dt = datetime.strptime(date_str, "%b %d, %Y")
                     formatted_date = dt.strftime("%Y%m%d")
@@ -53,7 +59,7 @@ def fetch_and_generate():
 
     ics_lines.append("END:VCALENDAR")
 
-    with open("calendar_test.ics", "w", encoding="utf-8") as f:
+    with open("calendar.ics", "w", encoding="utf-8") as f:
         f.write("\n".join(ics_lines))
 
 if __name__ == "__main__":
