@@ -1,4 +1,4 @@
-name: Refresh Local Tamil Academy Calendar
+name: Refresh w Claude Local Tamil Academy Calendar
 
 on:
   schedule:
