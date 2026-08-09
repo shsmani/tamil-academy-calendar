@@ -10,70 +10,79 @@ def fetch_and_generate():
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     }
     
-    response = requests.get(URL, headers=headers)
-    response.encoding = "utf-8"
-    soup = BeautifulSoup(response.text, "html.parser")
+    try:
+        response = requests.get(URL, headers=headers, timeout=15)
+        response.encoding = "utf-8"
+        soup = BeautifulSoup(response.text, "html.parser")
+    except Exception as e:
+        print(f"Error fetching page: {e}")
+        return
+
+    # Extract all visible text strings as an ordered list
+    strings = [s.strip() for s in soup.stripped_strings if s.strip()]
     
     events = {}
     base_year = datetime.now().year
 
-    # Extract all text blocks from table cells to preserve row relationship
-    cells = soup.find_all(["td", "th"])
-    
-    for i, cell in enumerate(cells):
-        text = cell.get_text(" ", strip=True)
-        
-        # Look for explicit month/day pattern (e.g., "Aug 09", "Nov 15", "Jan 24")
-        date_match = re.search(r"\b([A-Za-z]{3})\s+(\d{1,2})(?:st|nd|rd|th)?(?:\s*,?\s*(\d{4}))?\b", text)
-        if not date_match:
-            continue
+    # Regex to identify date strings like "Aug 09", "Aug 09, 2026", "08/09/2026"
+    date_pattern = re.compile(r"^\b([A-Za-z]{3})\s+(\d{1,2})(?:st|nd|rd|th)?(?:\s*,?\s*(\d{4}))?\b", re.IGNORECASE)
+
+    for i, token in enumerate(strings):
+        match = date_pattern.search(token)
+        if match:
+            month_str, day_str, year_str = match.groups()
             
-        month_str, day_str, year_str = date_match.groups()
-        
-        # Calculate dynamic year based on academic year structure (Aug-Dec vs Jan-May)
-        if year_str:
-            year = int(year_str)
-        else:
-            if month_str.capitalize() in ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]:
-                year = base_year + 1
+            # Infer academic year if year is omitted (Aug-Dec -> 2026, Jan-May -> 2027)
+            if year_str:
+                year = int(year_str)
             else:
-                year = base_year
+                if month_str.capitalize() in ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]:
+                    year = base_year + 1
+                else:
+                    year = base_year
 
-        try:
-            dt = datetime.strptime(f"{month_str} {day_str} {year}", "%b %d %Y")
-            formatted_date = dt.strftime("%Y%m%d")
-        except ValueError:
-            continue
+            try:
+                dt = datetime.strptime(f"{month_str} {day_str} {year}", "%b %d %Y")
+                formatted_date = dt.strftime("%Y%m%d")
+            except ValueError:
+                continue
 
-        # Look in the current cell or the immediate next cell for the description
-        description = ""
-        # Check remaining text in the same cell after the date
-        remaining_in_cell = text[date_match.end():].strip(" :-|")
-        if len(remaining_in_cell) > 2:
-            description = remaining_in_cell
-        elif i + 1 < len(cells):
-            next_text = cells[i + 1].get_text(" ", strip=True)
-            if not re.search(r"\b[A-Za-z]{3}\s+\d{1,2}\b", next_text):
-                description = next_text
+            # Check if there is remaining description text in the same token after the date
+            remaining = token[match.end():].strip(" :-|")
+            description = ""
 
-        if not description:
-            description = "Class Day"
+            if len(remaining) > 2:
+                description = remaining
+            else:
+                # Look ahead at subsequent tokens to find the event title
+                lookahead_idx = i + 1
+                while lookahead_idx < len(strings):
+                    next_token = strings[lookahead_idx]
+                    # Stop if we hit another date marker
+                    if date_pattern.search(next_token):
+                        break
+                    # Ignore short noise tokens
+                    if len(next_token) > 2:
+                        description = next_token
+                        break
+                    lookahead_idx += 1
 
-        # Determine event type dynamically
-        desc_lower = description.lower()
-        cell_lower = text.lower()
-        combined_text = f"{cell_lower} {desc_lower}"
+            if not description:
+                description = "Regular Class"
 
-        event_type = "OPEN"
-        if "test" in combined_text or "exam" in combined_text:
-            event_type = "TEST"
-        elif any(k in combined_text for k in ["holiday", "closed", "no class", "break", "deepawali", "thanksgiving", "christmas", "new year", "annual day"]):
-            event_type = "CLOSED"
+            # Categorize dynamically based on text keywords
+            combined_text = f"{token} {description}".lower()
+            event_type = "OPEN"
+            
+            if "test" in combined_text or "exam" in combined_text:
+                event_type = "TEST"
+            elif any(k in combined_text for k in ["holiday", "closed", "no class", "break", "deepawali", "thanksgiving", "christmas", "new year", "annual day"]):
+                event_type = "CLOSED"
 
-        events[formatted_date] = {
-            "title": description,
-            "type": event_type
-        }
+            events[formatted_date] = {
+                "title": description,
+                "type": event_type
+            }
 
     # Generate .ics output
     ics_lines = [
