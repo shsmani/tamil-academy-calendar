@@ -1,0 +1,357 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Hermes Agent//Mckinney Tamil Academy//EN
+CALSCALE:GREGORIAN
+TZID:America/Chicago
+BEGIN:VEVENT
+UID:20260809_First_day_of_school
+SUMMARY:First day of school
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: First day of school
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20260809
+DTEND:20260809
+END:VEVENT
+BEGIN:VEVENT
+UID:20260830_Test_1_-_Project_1
+SUMMARY:Test 1 - Project 1
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Test 1 - Project 1
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20260830
+DTEND:20260830
+END:VEVENT
+BEGIN:VEVENT
+UID:20260906_Holiday_-_Labor_day
+SUMMARY:Holiday - Labor day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Holiday - Labor day
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20260906
+DTEND:20260906
+END:VEVENT
+BEGIN:VEVENT
+UID:20261004_Test_2
+SUMMARY:Test 2
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Test 2
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20261004
+DTEND:20261004
+END:VEVENT
+BEGIN:VEVENT
+UID:20261101_Test_3_-_Term_1_ends
+SUMMARY:Test 3 - Term 1 ends
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Test 3 - Term 1 ends
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20261101
+DTEND:20261101
+END:VEVENT
+BEGIN:VEVENT
+UID:20261108_Holiday_-_Deepawali
+SUMMARY:Holiday - Deepawali
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Holiday - Deepawali
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20261108
+DTEND:20261108
+END:VEVENT
+BEGIN:VEVENT
+UID:20261115_Term_2_starts
+SUMMARY:Term 2 starts
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Term 2 starts
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20261115
+DTEND:20261115
+END:VEVENT
+BEGIN:VEVENT
+UID:20261129_Holiday_-_Thanksgiving
+SUMMARY:Holiday - Thanksgiving
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Holiday - Thanksgiving
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20261129
+DTEND:20261129
+END:VEVENT
+BEGIN:VEVENT
+UID:20261213_Test_4_-_Project_2
+SUMMARY:Test 4 - Project 2
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Test 4 - Project 2
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20261213
+DTEND:20261213
+END:VEVENT
+BEGIN:VEVENT
+UID:20261220_Holiday_-_Christmas
+SUMMARY:Holiday - Christmas
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Holiday - Christmas
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20261220
+DTEND:20261220
+END:VEVENT
+BEGIN:VEVENT
+UID:20261227_Holiday_-_NewYear
+SUMMARY:Holiday - NewYear
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Holiday - NewYear
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20261227
+DTEND:20261227
+END:VEVENT
+BEGIN:VEVENT
+UID:20270124_Test_5_-_Term_2_ends
+SUMMARY:Test 5 - Term 2 ends
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Test 5 - Term 2 ends
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270124
+DTEND:20270124
+END:VEVENT
+BEGIN:VEVENT
+UID:20270131_Term_3_starts
+SUMMARY:Term 3 starts
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Term 3 starts
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270131
+DTEND:20270131
+END:VEVENT
+BEGIN:VEVENT
+UID:20270221_Test_6
+SUMMARY:Test 6
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Test 6
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270221
+DTEND:20270221
+END:VEVENT
+BEGIN:VEVENT
+UID:20270321_Holiday_-_Springbreak
+SUMMARY:Holiday - Springbreak
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Holiday - Springbreak
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270321
+DTEND:20270321
+END:VEVENT
+BEGIN:VEVENT
+UID:20270328_Holiday_-_Annual_day
+SUMMARY:Holiday - Annual day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Holiday - Annual day
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270328
+DTEND:20270328
+END:VEVENT
+BEGIN:VEVENT
+UID:20270404_Test_7
+SUMMARY:Test 7
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Test 7
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270404
+DTEND:20270404
+END:VEVENT
+BEGIN:VEVENT
+UID:20270502_FINAL_TEST
+SUMMARY:FINAL TEST
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: FINAL TEST
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270502
+DTEND:20270502
+END:VEVENT
+BEGIN:VEVENT
+UID:20260816_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20260816
+DTEND:20260816
+END:VEVENT
+BEGIN:VEVENT
+UID:20260823_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20260823
+DTEND:20260823
+END:VEVENT
+BEGIN:VEVENT
+UID:20260913_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20260913
+DTEND:20260913
+END:VEVENT
+BEGIN:VEVENT
+UID:20260920_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20260920
+DTEND:20260920
+END:VEVENT
+BEGIN:VEVENT
+UID:20260927_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20260927
+DTEND:20260927
+END:VEVENT
+BEGIN:VEVENT
+UID:20261011_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20261011
+DTEND:20261011
+END:VEVENT
+BEGIN:VEVENT
+UID:20261018_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20261018
+DTEND:20261018
+END:VEVENT
+BEGIN:VEVENT
+UID:20261025_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20261025
+DTEND:20261025
+END:VEVENT
+BEGIN:VEVENT
+UID:20261122_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20261122
+DTEND:20261122
+END:VEVENT
+BEGIN:VEVENT
+UID:20261206_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20261206
+DTEND:20261206
+END:VEVENT
+BEGIN:VEVENT
+UID:20270103_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270103
+DTEND:20270103
+END:VEVENT
+BEGIN:VEVENT
+UID:20270110_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270110
+DTEND:20270110
+END:VEVENT
+BEGIN:VEVENT
+UID:20270117_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270117
+DTEND:20270117
+END:VEVENT
+BEGIN:VEVENT
+UID:20270207_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270207
+DTEND:20270207
+END:VEVENT
+BEGIN:VEVENT
+UID:20270214_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270214
+DTEND:20270214
+END:VEVENT
+BEGIN:VEVENT
+UID:20270228_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270228
+DTEND:20270228
+END:VEVENT
+BEGIN:VEVENT
+UID:20270307_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270307
+DTEND:20270307
+END:VEVENT
+BEGIN:VEVENT
+UID:20270314_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270314
+DTEND:20270314
+END:VEVENT
+BEGIN:VEVENT
+UID:20270411_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270411
+DTEND:20270411
+END:VEVENT
+BEGIN:VEVENT
+UID:20270418_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270418
+DTEND:20270418
+END:VEVENT
+BEGIN:VEVENT
+UID:20270425_normal_class
+SUMMARY:Normal Class Day
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, TX 75070
+DESCRIPTION:Mckinney Tamil Academy: Regular weekly academy class
+URL:https://www.catamilacademy.org/MckinneyTamilAcademy.html
+DTSTART:20270425
+DTEND:20270425
+END:VEVENT
+END:VCALENDAR
