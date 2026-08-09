@@ -7,50 +7,80 @@ URL = "http://www.catamilacademy.org/MckinneyTamilAcademy.html"
 
 def fetch_and_generate():
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     }
     
     response = requests.get(URL, headers=headers)
     response.encoding = "utf-8"
     soup = BeautifulSoup(response.text, "html.parser")
     
-    # Extract clean text from the entire page body
-    page_text = soup.get_text(separator=" ", strip=True)
-
-    # Regex pattern to capture dates like "Aug 09th 2026", "Aug 09, 2026", "Nov 15th", or "Jan 31st 2027"
-    date_pattern = re.compile(
-        r"([A-Za-z]{3})\s+(\d{1,2})(?:st|nd|rd|th)?(?:\s*,?\s*(\d{4}))?",
-        re.IGNORECASE
-    )
-
-    events = set() # Use a set to eliminate duplicate date entries
-    
-    # Default year context (academic year spans 2026-2027)
-    current_year = 2026
-
-    for match in date_pattern.finditer(page_text):
-        month, day, year = match.groups()
+    # 1. Dynamically parse the legend/key to map background colors or text markers to types
+    # CTA pages generally use color coding or inline styles for Test / Holiday / Regular
+    legend_map = {}
+    for td in soup.find_all(["td", "th", "div", "span"]):
+        text = td.get_text(strip=True).lower()
+        style = td.get("style", "").lower()
+        bgcolor = td.get("bgcolor", "").lower()
         
-        # If year isn't explicitly attached, infer based on month
-        if not year:
-            if month.capitalize() in ["Jan", "Feb", "Mar", "Apr", "May"]:
-                year = "2027"
+        color_info = f"{style} {bgcolor}"
+        if "test" in text:
+            legend_map["test"] = "TEST"
+        elif "holiday" in text or "closed" in text:
+            legend_map["holiday"] = "CLOSED"
+
+    # 2. Extract schedule entries dynamically
+    events = {}
+    rows = soup.find_all("tr")
+
+    # Tracking year context across academic years (e.g. Aug-Dec -> 2026, Jan-May -> 2027)
+    base_year = datetime.now().year
+    
+    for row in rows:
+        cells = row.find_all(["td", "th"])
+        if len(cells) < 2:
+            continue
+            
+        col1_text = cells[0].get_text(" ", strip=True)
+        col2_text = cells[1].get_text(" ", strip=True)
+        
+        # Match date formats like "Aug 09", "Aug 09, 2026", "08/09/2026", "Aug 09th"
+        date_match = re.search(r"([A-Za-z]{3})\s+(\d{1,2})(?:st|nd|rd|th)?(?:\s*,?\s*(\d{4}))?", col1_text)
+        if not date_match:
+            continue
+            
+        month_str, day_str, year_str = date_match.groups()
+        
+        # Infer academic year if not explicitly stated in the row
+        if year_str:
+            year = int(year_str)
+        else:
+            if month_str.capitalize() in ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]:
+                year = base_year + 1
             else:
-                year = "2026"
+                year = base_year
 
         try:
-            date_obj = datetime.strptime(f"{month} {day} {year}", "%b %d %Y")
-            formatted_date = date_obj.strftime("%Y%m%d")
-            
-            # Filter out dates outside the school year range
-            if 20260801 <= int(formatted_date) <= 20270601:
-                events.add(formatted_date)
+            dt = datetime.strptime(f"{month_str} {day_str} {year}", "%b %d %Y")
+            formatted_date = dt.strftime("%Y%m%d")
         except ValueError:
             continue
 
-    sorted_dates = sorted(list(events))
+        description = col2_text if col2_text else "Class Day"
+        row_str = (row.get_text() + " " + str(row)).lower()
+        
+        # Dynamic type determination based on row content or style attributes
+        event_type = "OPEN"
+        if "test" in row_str or "exam" in row_str:
+            event_type = "TEST"
+        elif "holiday" in row_str or "closed" in row_str or "no class" in row_str or "break" in row_str:
+            event_type = "CLOSED"
 
-    # Build .ics content
+        events[formatted_date] = {
+            "title": description,
+            "type": event_type
+        }
+
+    # 3. Generate .ics file output
     ics_lines = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
@@ -61,10 +91,21 @@ def fetch_and_generate():
         "X-WR-TIMEZONE:America/Chicago"
     ]
 
-    for date_str in sorted_dates:
+    for date_str in sorted(events.keys()):
+        item = events[date_str]
+        title = item["title"]
+        e_type = item["type"]
+
+        if e_type == "CLOSED":
+            summary = f"Tamil Class - [CLOSED] {title}"
+        elif e_type == "TEST":
+            summary = f"Tamil Class - [TEST] {title}"
+        else:
+            summary = f"Tamil Class - {title}"
+
         ics_lines.extend([
             "BEGIN:VEVENT",
-            "SUMMARY:Tamil Class - McKinney",
+            f"SUMMARY:{summary}",
             f"DTSTART;TZID=America/Chicago:{date_str}T160000",
             f"DTEND;TZID=America/Chicago:{date_str}T173000",
             "LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070",
