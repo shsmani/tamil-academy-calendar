@@ -14,90 +14,68 @@ def fetch_and_generate():
     response.encoding = "utf-8"
     soup = BeautifulSoup(response.text, "html.parser")
     
-    # Extract all text content while preserving line breaks to keep descriptions aligned with dates
-    text_content = soup.get_text(separator="\n")
-    
     events = {}
-    
-    # Pattern matches line blocks containing dates like "Aug 09, 2026", "Aug 09", or "08/09/2026"
-    # followed immediately or closely by description text on the same or next line
-    pattern = re.compile(
-        r"([A-Za-z]{3}\s+\d{1,2}(?:st|nd|rd|th)?(?:\s*,?\s*\d{4})?|\d{1,2}/\d{1,2}/\d{4})\s*[:\-\|]?\s*(.*)",
-        re.IGNORECASE
-    )
-
     base_year = datetime.now().year
 
-    for line in text_content.splitlines():
-        line = line.strip()
-        if not line:
+    # Extract all text blocks from table cells to preserve row relationship
+    cells = soup.find_all(["td", "th"])
+    
+    for i, cell in enumerate(cells):
+        text = cell.get_text(" ", strip=True)
+        
+        # Look for explicit month/day pattern (e.g., "Aug 09", "Nov 15", "Jan 24")
+        date_match = re.search(r"\b([A-Za-z]{3})\s+(\d{1,2})(?:st|nd|rd|th)?(?:\s*,?\s*(\d{4}))?\b", text)
+        if not date_match:
             continue
             
-        match = re.search(r"([A-Za-z]{3})\s+(\d{1,2})(?:st|nd|rd|th)?(?:\s*,?\s*(\d{4}))?", line)
-        if match:
-            month_str, day_str, year_str = match.groups()
-            
-            # Dynamically handle academic year context (Aug-Dec vs Jan-May)
-            if year_str:
-                year = int(year_str)
+        month_str, day_str, year_str = date_match.groups()
+        
+        # Calculate dynamic year based on academic year structure (Aug-Dec vs Jan-May)
+        if year_str:
+            year = int(year_str)
+        else:
+            if month_str.capitalize() in ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]:
+                year = base_year + 1
             else:
-                if month_str.capitalize() in ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]:
-                    year = base_year + 1
-                else:
-                    year = base_year
+                year = base_year
 
-            try:
-                dt = datetime.strptime(f"{month_str} {day_str} {year}", "%b %d %Y")
-                formatted_date = dt.strftime("%Y%m%d")
-            except ValueError:
-                continue
+        try:
+            dt = datetime.strptime(f"{month_str} {day_str} {year}", "%b %d %Y")
+            formatted_date = dt.strftime("%Y%m%d")
+        except ValueError:
+            continue
 
-            # Extract the rest of the text on that line as the description
-            desc = line[match.end():].strip(" :-|")
-            description = desc if desc else "Class Day"
-            
-            # Dynamic type categorization based on text keywords
-            line_lower = line.lower()
-            event_type = "OPEN"
-            if "test" in line_lower or "exam" in line_lower:
-                event_type = "TEST"
-            elif "holiday" in line_lower or "closed" in line_lower or "no class" in line_lower or "break" in line_lower or "deepawali" in line_lower or "thanksgiving" in line_lower:
-                event_type = "CLOSED"
+        # Look in the current cell or the immediate next cell for the description
+        description = ""
+        # Check remaining text in the same cell after the date
+        remaining_in_cell = text[date_match.end():].strip(" :-|")
+        if len(remaining_in_cell) > 2:
+            description = remaining_in_cell
+        elif i + 1 < len(cells):
+            next_text = cells[i + 1].get_text(" ", strip=True)
+            if not re.search(r"\b[A-Za-z]{3}\s+\d{1,2}\b", next_text):
+                description = next_text
 
-            events[formatted_date] = {
-                "title": description,
-                "type": event_type
-            }
+        if not description:
+            description = "Class Day"
 
-    # Fallback check: If the page structure isolates text into separate tags, extract by regex pairs
-    if not events:
-        raw_text = soup.get_text(separator=" ", strip=True)
-        # Search for occurrences of Date + Event description
-        pair_matches = re.findall(
-            r"([A-Za-z]{3}\s+\d{1,2}(?:st|nd|rd|th)?(?:\s*,?\s*\d{4})?)\s+([A-Za-z0-9\s\-\(\)]+)", 
-            raw_text
-        )
-        for date_part, desc_part in pair_matches:
-            m = re.search(r"([A-Za-z]{3})\s+(\d{1,2})(?:st|nd|rd|th)?(?:\s*,?\s*(\d{4}))?", date_part)
-            if m:
-                m_str, d_str, y_str = m.groups()
-                y = int(y_str) if y_str else (base_year + 1 if m_str.capitalize() in ["Jan", "Feb", "Mar", "Apr", "May"] else base_year)
-                try:
-                    dt = datetime.strptime(f"{m_str} {d_str} {y}", "%b %d %Y")
-                    f_date = dt.strftime("%Y%m%d")
-                except ValueError:
-                    continue
-                
-                desc_lower = desc_part.lower()
-                e_type = "OPEN"
-                if "test" in desc_lower or "exam" in desc_lower:
-                    e_type = "TEST"
-                elif "holiday" in desc_lower or "closed" in desc_lower or "break" in desc_lower:
-                    e_type = "CLOSED"
+        # Determine event type dynamically
+        desc_lower = description.lower()
+        cell_lower = text.lower()
+        combined_text = f"{cell_lower} {desc_lower}"
 
-                events[f_date] = {"title": desc_part.strip(), "type": e_type}
+        event_type = "OPEN"
+        if "test" in combined_text or "exam" in combined_text:
+            event_type = "TEST"
+        elif any(k in combined_text for k in ["holiday", "closed", "no class", "break", "deepawali", "thanksgiving", "christmas", "new year", "annual day"]):
+            event_type = "CLOSED"
 
-    # Build .ics output
+        events[formatted_date] = {
+            "title": description,
+            "type": event_type
+        }
+
+    # Generate .ics output
     ics_lines = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
