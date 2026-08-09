@@ -5,4 +5,166 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 X-WR-CALNAME:Tamil Academy Schedule
 X-WR-TIMEZONE:America/Chicago
+BEGIN:VEVENT
+SUMMARY:Tamil Class - to Nov 01st 2026 - 12 Classes
+DTSTART;TZID=America/Chicago:20260809T160000
+DTEND;TZID=America/Chicago:20260809T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - 26
+DTSTART;TZID=America/Chicago:20260820T160000
+DTEND;TZID=America/Chicago:20260820T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - Class Day
+DTSTART;TZID=America/Chicago:20260830T160000
+DTEND;TZID=America/Chicago:20260830T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - Class Day
+DTSTART;TZID=America/Chicago:20260906T160000
+DTEND;TZID=America/Chicago:20260906T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - 26
+DTSTART;TZID=America/Chicago:20260920T160000
+DTEND;TZID=America/Chicago:20260920T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - Class Day
+DTSTART;TZID=America/Chicago:20261004T160000
+DTEND;TZID=America/Chicago:20261004T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - 26
+DTSTART;TZID=America/Chicago:20261020T160000
+DTEND;TZID=America/Chicago:20261020T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - Class Day
+DTSTART;TZID=America/Chicago:20261101T160000
+DTEND;TZID=America/Chicago:20261101T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - Class Day
+DTSTART;TZID=America/Chicago:20261108T160000
+DTEND;TZID=America/Chicago:20261108T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - to Jan 24th 2027 - 08 Classes
+DTSTART;TZID=America/Chicago:20261115T160000
+DTEND;TZID=America/Chicago:20261115T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - 26
+DTSTART;TZID=America/Chicago:20261120T160000
+DTEND;TZID=America/Chicago:20261120T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - Class Day
+DTSTART;TZID=America/Chicago:20261129T160000
+DTEND;TZID=America/Chicago:20261129T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - Class Day
+DTSTART;TZID=America/Chicago:20261213T160000
+DTEND;TZID=America/Chicago:20261213T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - Class Day
+DTSTART;TZID=America/Chicago:20261220T160000
+DTEND;TZID=America/Chicago:20261220T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - Class Day
+DTSTART;TZID=America/Chicago:20261227T160000
+DTEND;TZID=America/Chicago:20261227T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - 27
+DTSTART;TZID=America/Chicago:20270120T160000
+DTEND;TZID=America/Chicago:20270120T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - Class Day
+DTSTART;TZID=America/Chicago:20270124T160000
+DTEND;TZID=America/Chicago:20270124T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - to May 02nd 2027 - 12 Classes
+DTSTART;TZID=America/Chicago:20270131T160000
+DTEND;TZID=America/Chicago:20270131T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - 27
+DTSTART;TZID=America/Chicago:20270220T160000
+DTEND;TZID=America/Chicago:20270220T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - Class Day
+DTSTART;TZID=America/Chicago:20270221T160000
+DTEND;TZID=America/Chicago:20270221T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - 27
+DTSTART;TZID=America/Chicago:20270320T160000
+DTEND;TZID=America/Chicago:20270320T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - Class Day
+DTSTART;TZID=America/Chicago:20270321T160000
+DTEND;TZID=America/Chicago:20270321T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - Class Day
+DTSTART;TZID=America/Chicago:20270328T160000
+DTEND;TZID=America/Chicago:20270328T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - Class Day
+DTSTART;TZID=America/Chicago:20270404T160000
+DTEND;TZID=America/Chicago:20270404T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - 27
+DTSTART;TZID=America/Chicago:20270420T160000
+DTEND;TZID=America/Chicago:20270420T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - Class Day
+DTSTART;TZID=America/Chicago:20270502T160000
+DTEND;TZID=America/Chicago:20270502T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Tamil Class - 27
+DTSTART;TZID=America/Chicago:20270520T160000
+DTEND;TZID=America/Chicago:20270520T173000
+LOCATION:Children's Lighthouse of McKinney, 7900 Stacy Rd, McKinney, TX 75070
+END:VEVENT
 END:VCALENDAR
