@@ -1,4 +1,4 @@
-name: Refresh Tamil Academy Calendar
+name: Refresh Local Tamil Academy Calendar
 
 on:
   schedule:
