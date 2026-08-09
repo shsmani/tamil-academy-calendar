@@ -53,7 +53,7 @@ def fetch_and_generate():
 
     ics_lines.append("END:VCALENDAR")
 
-    with open("calendar.ics", "w", encoding="utf-8") as f:
+    with open("calendar_test.ics", "w", encoding="utf-8") as f:
         f.write("\n".join(ics_lines))
 
 if __name__ == "__main__":
